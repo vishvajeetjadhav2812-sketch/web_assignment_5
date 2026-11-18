@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Lab 5 - Even Numbers (1 to 100)</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Arial, Helvetica, sans-serif; background: #f3f4f6; color: #1f2937; margin: 0; line-height: 1.5; }
+    header { background: #b45309; color: #fff; text-align: center; padding: 18px 12px; }
+    header h1 { margin: 0; font-size: 1.4rem; }
+    header p { margin: 4px 0 0; font-size: .9rem; }
+    .back { display: block; text-align: center; padding: 8px; background: #fef3c7; }
+    .back a { color: #b45309; font-weight: 700; text-decoration: none; }
+    main { max-width: 640px; margin: 20px auto; background: #fff; padding: 22px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+    label { display: block; margin: 12px 0 4px; font-weight: 600; }
+    input[type=text], input[type=password], input[type=email], input[type=number], input[type=tel], input[type=date],
+    select, textarea { width: 100%; padding: 8px; border: 1px solid #9ca3af; border-radius: 4px; font: inherit; }
+    fieldset { border: 1px solid #9ca3af; border-radius: 6px; margin: 12px 0; padding: 8px 14px; }
+    fieldset label { display: inline-block; font-weight: 400; margin-right: 14px; }
+    button { background: #b45309; color: #fff; border: 0; padding: 9px 16px; margin: 12px 8px 0 0; border-radius: 4px; cursor: pointer; font: inherit; }
+    button:hover { background: #92400e; }
+    button.gray { background: #6b7280; }
+    .error { color: #dc2626; font-size: .85rem; min-height: 1em; }
+    .ok { color: #15803d; font-weight: 700; }
+    .output { margin-top: 16px; padding: 12px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; word-wrap: break-word; }
+    table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+    th, td { border: 1px solid #d1d5db; padding: 6px 10px; text-align: left; }
+    th { background: #fef3c7; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+    .card { background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 8px 12px; font-size: .9rem; }
+    .card h4 { margin: 0 0 4px; color: #b45309; }
+    .box { padding: 18px; margin: 10px 0; border-radius: 6px; background: #e5e7eb; text-align: center; user-select: none; }
+    .calc { max-width: 280px; margin: 0 auto; }
+    .calc input { text-align: right; font-size: 1.4rem; margin-bottom: 8px; }
+    .keys { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+    .keys button { margin: 0; padding: 14px 0; font-size: 1.1rem; }
+    .keys .op { background: #374151; }
+    .big { font-size: 2rem; text-align: center; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Even Numbers (1 to 100)</h1>
+    <p>Lab Assignment 5 &ndash; JavaScript Basics</p>
+  </header>
+  <div class="back"><a href="index.html">&larr; All Assignments</a></div>
+  <main>
+    <div class="output" id="out"></div>
+  </main>
+  <script>
+    var list = [];
+    for (var i = 1; i <= 100; i++) {
+      if (i % 2 === 0) list.push(i);
+    }
+    document.getElementById('out').innerHTML = '<strong>Even numbers between 1 and 100:</strong><br>' + list.join(', ');
+  </script>
+</body>
+</html>

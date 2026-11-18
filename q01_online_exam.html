@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Lab 1 - Online Examination Form</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Arial, Helvetica, sans-serif; background: #f3f4f6; color: #1f2937; margin: 0; line-height: 1.5; }
+    header { background: #b45309; color: #fff; text-align: center; padding: 18px 12px; }
+    header h1 { margin: 0; font-size: 1.4rem; }
+    header p { margin: 4px 0 0; font-size: .9rem; }
+    .back { display: block; text-align: center; padding: 8px; background: #fef3c7; }
+    .back a { color: #b45309; font-weight: 700; text-decoration: none; }
+    main { max-width: 640px; margin: 20px auto; background: #fff; padding: 22px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+    label { display: block; margin: 12px 0 4px; font-weight: 600; }
+    input[type=text], input[type=password], input[type=email], input[type=number], input[type=tel], input[type=date],
+    select, textarea { width: 100%; padding: 8px; border: 1px solid #9ca3af; border-radius: 4px; font: inherit; }
+    fieldset { border: 1px solid #9ca3af; border-radius: 6px; margin: 12px 0; padding: 8px 14px; }
+    fieldset label { display: inline-block; font-weight: 400; margin-right: 14px; }
+    button { background: #b45309; color: #fff; border: 0; padding: 9px 16px; margin: 12px 8px 0 0; border-radius: 4px; cursor: pointer; font: inherit; }
+    button:hover { background: #92400e; }
+    button.gray { background: #6b7280; }
+    .error { color: #dc2626; font-size: .85rem; min-height: 1em; }
+    .ok { color: #15803d; font-weight: 700; }
+    .output { margin-top: 16px; padding: 12px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; word-wrap: break-word; }
+    table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+    th, td { border: 1px solid #d1d5db; padding: 6px 10px; text-align: left; }
+    th { background: #fef3c7; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+    .card { background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 8px 12px; font-size: .9rem; }
+    .card h4 { margin: 0 0 4px; color: #b45309; }
+    .box { padding: 18px; margin: 10px 0; border-radius: 6px; background: #e5e7eb; text-align: center; user-select: none; }
+    .calc { max-width: 280px; margin: 0 auto; }
+    .calc input { text-align: right; font-size: 1.4rem; margin-bottom: 8px; }
+    .keys { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+    .keys button { margin: 0; padding: 14px 0; font-size: 1.1rem; }
+    .keys .op { background: #374151; }
+    .big { font-size: 2rem; text-align: center; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Online Examination Form</h1>
+    <p>Lab Assignment 1 &ndash; JavaScript Basics</p>
+  </header>
+  <div class="back"><a href="index.html">&larr; All Assignments</a></div>
+  <main>
+    <form id="examForm" novalidate>
+      <label for="sname">Student Name</label>
+      <input type="text" id="sname">
+      <label for="rollno">Roll Number</label>
+      <input type="text" id="rollno">
+      <p><strong>Q1.</strong> Which tag is used to create a hyperlink in HTML?</p>
+      <fieldset>
+        <label><input type="radio" name="q1" value="a"> &lt;a&gt;</label>
+        <label><input type="radio" name="q1" value="link"> &lt;link&gt;</label>
+        <label><input type="radio" name="q1" value="href"> &lt;href&gt;</label>
+      </fieldset>
+      <p><strong>Q2.</strong> Which of these is a JavaScript data type? (select all that apply)</p>
+      <fieldset>
+        <label><input type="checkbox" name="q2" value="string"> String</label>
+        <label><input type="checkbox" name="q2" value="boolean"> Boolean</label>
+        <label><input type="checkbox" name="q2" value="float"> Float</label>
+        <label><input type="checkbox" name="q2" value="number"> Number</label>
+      </fieldset>
+      <p><strong>Q3.</strong> Which keyword declares a block-scoped variable?</p>
+      <select id="q3"><option value="">-- Select --</option><option value="var">var</option><option value="let">let</option><option value="int">int</option></select>
+      <p><strong>Q4.</strong> What does CSS stand for?</p>
+      <input type="text" id="q4" placeholder="Type your answer">
+      <div class="error" id="err"></div>
+      <button type="submit">Submit Exam</button>
+      <button type="reset" class="gray">Reset</button>
+    </form>
+    <div class="output" id="result" hidden></div>
+  </main>
+  <script>
+    document.getElementById('examForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('sname').value.trim();
+      var roll = document.getElementById('rollno').value.trim();
+      var err = document.getElementById('err');
+      if (name === '' || roll === '') { err.textContent = 'Please enter your name and roll number.'; return; }
+      err.textContent = '';
+      var score = 0;
+      var a1 = document.querySelector('input[name=q1]:checked');
+      if (a1 && a1.value === 'a') score++;
+      var picked = Array.from(document.querySelectorAll('input[name=q2]:checked')).map(function (c) { return c.value; }).sort().join(',');
+      if (picked === 'boolean,number,string') score++;
+      if (document.getElementById('q3').value === 'let') score++;
+      if (document.getElementById('q4').value.trim().toLowerCase() === 'cascading style sheets') score++;
+      var res = document.getElementById('result');
+      res.hidden = false;
+      res.innerHTML = '<strong>' + name + '</strong> (Roll No: ' + roll + ')<br>Score: <strong>' + score + ' / 4</strong><br>' +
+        (score >= 2 ? '<span class="ok">Result: PASS</span>' : '<span style="color:#dc2626;font-weight:700">Result: FAIL</span>');
+    });
+    document.getElementById('examForm').addEventListener('reset', function () {
+      document.getElementById('result').hidden = true;
+      document.getElementById('err').textContent = '';
+    });
+  </script>
+</body>
+</html>
